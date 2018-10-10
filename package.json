@@ -1,12 +1,12 @@
 {
-  "name": "xl_auth",
+  "name": "id.mkdevops.se",
   "version": "0.7.6",
   "author": "National Library of Sweden",
   "license": "Apache-2.0",
-  "description": "Authorization and OAuth2 provider for LibrisXL",
-  "homepage": "https://github.com/libris/xl_auth#readme",
+  "description": "Simple OAuth2 provider",
+  "homepage": "https://github.com/vtepliuk/id.mkdevops.se#readme",
   "bugs": {
-    "url": "https://github.com/libris/xl_auth/issues"
+    "url": "https://github.com/vtepliuk/id.mkdevops.se/issues"
   },
   "scripts": {
     "build": "rm -f assets/.DS_Store && NODE_ENV=production ./node_modules/.bin/webpack --progress --colors -p",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/libris/xl_auth.git"
+    "url": "git+https://github.com/vtepliuk/id.mkdevops.se"
   },
   "keywords": [
     "kb",
