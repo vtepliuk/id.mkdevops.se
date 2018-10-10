@@ -1,10 +1,10 @@
 .. -*- coding: utf-8 -*-
 
-=========
- xl_auth
-=========
+================
+ id.mkdevops.se
+================
 
-Authorization and OAuth2 provider for LibrisXL.
+Simple OAuth2 Identity Provider.
 
 .. image:: http://jenkins.smithmicro.io:8080/job/xl_auth-multibranch/job/master/lastBuild/badge/icon
     :target: http://jenkins.smithmicro.io:8080/job/xl_auth-multibranch/job/master/lastBuild/
@@ -23,8 +23,8 @@ add the following to ``.bashrc`` or ``.bash_profile``.
 
 Run the following commands to bootstrap your environment ::
 
-    git clone https://github.com/libris/xl_auth
-    cd xl_auth
+    git clone https://github.com/vtepliuk/id.mkdevops.se.git
+    cd id.mkdevops.se
     virtualenv venv && source venv/bin/activate
     pip install -r requirements/dev.txt
     npm install
@@ -63,7 +63,7 @@ Staging dev deployment ::
     cd ansible/
     vagrant up --provision
 
-Rolling out latest Docker on login.libris.kb.se dev server ::
+Rolling out latest Docker on id.mkdevops.se dev server ::
 
     cd ansible/
     ansible-playbook deployment.yml -u <my-exchange-username> --ask-pass --ask-become-pass
