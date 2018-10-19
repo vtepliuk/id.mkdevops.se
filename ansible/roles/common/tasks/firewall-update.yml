@@ -13,7 +13,14 @@
 - name: open up port 5601
   firewalld:
     port: 5601/tcp
-    source: 10.0.1.32
+    source: 37.123.179.154
+    state: enabled
+    immediate: yes
+
+- name: allow traffic to kibana from trusted sources (firewalld)
+  firewalld:
+    rich_rule: 'rule family=ipv4 source address=37.123.179.154/32   port port=5601 protocol=tcp accept'
+    permanent: True
     state: enabled
     immediate: yes
 
