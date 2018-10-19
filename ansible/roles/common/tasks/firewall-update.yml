@@ -10,4 +10,11 @@
   firewalld: service=ssh permanent=true state=enabled
   notify: restart firewalld
 
+- name: open up port 5601
+  firewalld:
+    port: 5601/tcp
+    source: 10.0.1.32
+    state: enabled
+    immediate: yes
+
 ...
