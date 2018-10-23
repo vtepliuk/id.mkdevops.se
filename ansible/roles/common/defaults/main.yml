@@ -2,4 +2,8 @@
 
 selinux_enabled: False
 
+sysadmins:
+  - vtepliuk
+  - mblomdahl
+
 ...
