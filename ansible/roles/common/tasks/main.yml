@@ -38,4 +38,34 @@
   import_tasks: install-packages.yml
   tags: common
 
+- name: configure sysadmins accounts
+  user:
+    name: "{{ item }}"
+    groups: wheel
+    state: present
+    force: yes
+  with_items: "{{ sysadmins }}"
+  tags: common
+
+- name: set ~/.ssh/authorized_keys for sysadmins
+  authorized_key:
+    user: "{{ item }}"
+    key: "{{ lookup('file', item + '_id_rsa.pub') }}"
+    exclusive: yes
+  with_items: "{{ sysadmins }}"
+  tags: common
+
+- name: enable password-less sudo for 'wheel' group members (sysadmins)
+  lineinfile:
+    path: /etc/sudoers
+    regexp: '%wheel.+'
+    line: '%wheel  ALL=(ALL)       NOPASSWD: ALL'
+  tags: common
+
+- name: remove ~/.ssh/authorized_keys for 'root' user
+  file:
+    path: /root/.ssh/authorized_keys
+    state: absent
+  tags: common
+
 ...
