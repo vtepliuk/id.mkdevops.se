@@ -3,18 +3,24 @@ import uuid
 from base64 import b64encode
 from requests import Request
 import requests
+from os import environ
+
+OAUTH2_BASE_URL = environ.get('OAUTH2_BASE_URL')
+OAUTH2_CLIENT_ID = environ.get('OAUTH2_CLIENT_ID')
+OAUTH2_CLIENT_SECRET = environ.get('OAUTH2_CLIENT_SECRET')
+APP_SECRET_KEY = environ.get('APP_SECRET_KEY')
 
 app = Flask(__name__)
 
-app.secret_key = b'rehgejgbfkhjb'  # FIXME(vtepliuk): Remove in next version.
+app.secret_key = APP_SECRET_KEY
 
 
 @app.route('/')
 def index():
     req = Request(method='GET',
-                  url='http://127.0.0.1:5000/oauth/authorize',
+                  url=OAUTH2_BASE_URL + 'oauth/authorize',
                   params={
-                      'client_id': '7368b9a635413b2f153fa032b3de658c',
+                      'client_id': OAUTH2_CLIENT_ID,
                       'scope': 'read write',
                       'state': uuid.uuid4().get_hex(),
                       'response_type': 'code',
@@ -28,12 +34,9 @@ def index():
 def login():
     code = request.args.get('code')
     state = request.args.get('state')
-    client_id = '7368b9a635413b2f153fa032b3de658c'
-    client_secret = ('458c9658bc138ebd752cfc7076bae60e4e27693d306901baf76be91627feff9390edf5c2542a1'
-                     '6d07bc496207058ac4b46f2d0ac7dca76be620d4da4a0c8f6fb147607ec7049d04c4409e84940'
-                     'e850ed6eaf4713b4c4c1ee6b20b60818b3539df9c57f631ba00aa5995edb1f943085258424edb'
-                     '44343ec32d5fbbb897d4b65da')  # FIXME(vtepliuk): Remove in next version.
-    token_endpoint = 'http://127.0.0.1:5000/oauth/token'
+    client_id = OAUTH2_CLIENT_ID
+    client_secret = OAUTH2_CLIENT_SECRET
+    token_endpoint = OAUTH2_BASE_URL + 'oauth/token'
     client_redirect_uri = 'http://127.0.0.1:5001/login'
     credentials = '%s:%s' % (client_id, client_secret)
     auth_code = str(b64encode(credentials.encode()).decode())
@@ -51,7 +54,7 @@ def login():
 @app.route('/profile')
 def profile():
     access_token = session['access_token']
-    verify_response = requests.get('http://127.0.0.1:5000/oauth/verify',
+    verify_response = requests.get(OAUTH2_BASE_URL + 'oauth/verify',
                                    headers={'Authorization': str('Bearer ' + access_token)})
     full_name = verify_response.json()['user']['full_name']
     email = verify_response.json()['user']['email']
