@@ -37,7 +37,7 @@ def login():
     client_id = OAUTH2_CLIENT_ID
     client_secret = OAUTH2_CLIENT_SECRET
     token_endpoint = OAUTH2_BASE_URL + 'oauth/token'
-    client_redirect_uri = 'http://127.0.0.1:5001/login'
+    client_redirect_uri = 'http://oauth2-client.mkdevops.se/login'
     credentials = '%s:%s' % (client_id, client_secret)
     auth_code = str(b64encode(credentials.encode()).decode())
     headers = {'Authorization': str('Basic ' + auth_code)}

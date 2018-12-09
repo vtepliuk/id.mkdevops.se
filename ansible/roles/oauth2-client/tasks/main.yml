@@ -1,0 +1,12 @@
+---
+
+- name: run oauth2-client
+  docker_container:
+    name:  oauth2-client
+    image: tepliuk/oauth2-client
+    pull: yes
+    state: started
+    ports:
+      - 80:5001
+
+...

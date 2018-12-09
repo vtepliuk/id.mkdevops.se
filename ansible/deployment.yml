@@ -1,7 +1,7 @@
 ---
 
 - name: provision stuff for beta roll-out
-  hosts: all
+  hosts: id.mkdevops.se
   become: True
   roles:
     - common
@@ -9,4 +9,13 @@
     - nginx
     - xl_auth
     - logging
+
+- name: OAuth2 client
+  hosts: oauth2-client.mkdevops.se
+  become: True
+  roles:
+    - common
+    - docker
+    - oauth2-client
+
 ...
