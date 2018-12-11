@@ -6,9 +6,17 @@ import requests
 from os import environ
 
 OAUTH2_BASE_URL = environ.get('OAUTH2_BASE_URL')
+if not OAUTH2_BASE_URL:
+    raise AssertionError('OAUTH2_BASE_URL missing!')
 OAUTH2_CLIENT_ID = environ.get('OAUTH2_CLIENT_ID')
+if not OAUTH2_CLIENT_ID:
+    raise AssertionError('OAUTH2_CLIENT_ID missing!')
 OAUTH2_CLIENT_SECRET = environ.get('OAUTH2_CLIENT_SECRET')
+if not OAUTH2_CLIENT_SECRET:
+    raise AssertionError('OAUTH2_CLIENT_SECRET missing!')
 APP_SECRET_KEY = environ.get('APP_SECRET_KEY')
+if not APP_SECRET_KEY:
+    raise AssertionError('APP_SECRET_KEY missing!')
 
 app = Flask(__name__)
 

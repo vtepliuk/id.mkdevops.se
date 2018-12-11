@@ -62,7 +62,7 @@
   register: start_xl_auth
   tags: xl_auth
 
-- name: run 'flask create-user -e torimkdevops.se -p <my-secret> --is-active --is-admin --force'
+- name: run 'flask create-user -e tori@mkdevops.se -p <my-secret> --is-active --is-admin --force'
   docker_container:
     name: xl_auth_create_user
     hostname: xl_auth
