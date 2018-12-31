@@ -8,8 +8,4 @@
   shell: echo "(setq make-backup-files nil)" > /root/.emacs
   check_mode: no
 
-- name: restart firewalld
-  service: name=firewalld state=restarted
-  check_mode: no
-
 ...

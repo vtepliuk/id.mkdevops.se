@@ -40,7 +40,7 @@
     hostname: "{{ inventory_hostname }}"
     image: "{{ xl_auth_docker }}"
     pull: yes
-    command: prod-run
+    command: prod_run
     state: started
     restart_policy: unless-stopped
     log_driver: gelf
@@ -62,7 +62,7 @@
   register: start_xl_auth
   tags: xl_auth
 
-- name: run 'flask create-user -e tori@mkdevops.se -p <my-secret> --is-active --is-admin --force'
+- name: run 'flask create_user -e libris@kb.se -p <my-secret> --is-active --is-admin --force'
   docker_container:
     name: xl_auth_create_user
     hostname: xl_auth
@@ -71,7 +71,7 @@
     interactive: yes
     tty: yes
     detach: no
-    command: "create-user -e tori@mkdevops.se -n SuperAdmin -p {{ xl_auth_admin_pass }} --is-active
+    command: "create_user -e libris@kb.se -n SuperAdmin -p {{ xl_auth_admin_pass }} --is-active
              --is-admin --force"
     log_driver: json-file
     links:
