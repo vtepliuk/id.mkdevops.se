@@ -13,6 +13,8 @@
 - name: OAuth2 client
   hosts: oauth2-client.mkdevops.se
   become: True
+  vars_files:
+    - secrets.yml
   roles:
     - common
     - docker

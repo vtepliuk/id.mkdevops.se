@@ -14,6 +14,9 @@ if not OAUTH2_CLIENT_ID:
 OAUTH2_CLIENT_SECRET = environ.get('OAUTH2_CLIENT_SECRET')
 if not OAUTH2_CLIENT_SECRET:
     raise AssertionError('OAUTH2_CLIENT_SECRET missing!')
+OAUTH2_CLIENT_REDIRECT_URI = environ.get('OAUTH2_CLIENT_REDIRECT_URI')
+if not OAUTH2_CLIENT_REDIRECT_URI:
+    raise AssertionError('OAUTH2_CLIENT_REDIRECT_URI missing!')
 APP_SECRET_KEY = environ.get('APP_SECRET_KEY')
 if not APP_SECRET_KEY:
     raise AssertionError('APP_SECRET_KEY missing!')
@@ -45,7 +48,7 @@ def login():
     client_id = OAUTH2_CLIENT_ID
     client_secret = OAUTH2_CLIENT_SECRET
     token_endpoint = OAUTH2_BASE_URL + 'oauth/token'
-    client_redirect_uri = 'http://oauth2-client.mkdevops.se/login'
+    client_redirect_uri = OAUTH2_CLIENT_REDIRECT_URI
     credentials = '%s:%s' % (client_id, client_secret)
     auth_code = str(b64encode(credentials.encode()).decode())
     headers = {'Authorization': str('Basic ' + auth_code)}
