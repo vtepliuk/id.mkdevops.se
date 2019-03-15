@@ -92,3 +92,9 @@ def profile():
     exp = id_info['exp']
     return render_template('profile.html', full_name=full_name, email=email, iss=iss, exp=exp,
                            sub_id=sub_id, email_verified=email_verified)
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return render_template('logout.html')
