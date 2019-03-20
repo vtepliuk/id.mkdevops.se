@@ -5,6 +5,6 @@
     <title>OAuth2 Client</title>
 </head>
 <body>
-    <a href="{{ authorize_url }}">Logga in via id.mkdevops.se</a>
+    <a href="{{ authorize_url }}">Logga in via {{ authorize_url.split('?')[0] }}</a>
 </body>
 </html>
