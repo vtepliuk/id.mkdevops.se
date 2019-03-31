@@ -28,6 +28,9 @@ if not OAUTH2_CLIENT_REDIRECT_URI:
 APP_SECRET_KEY = environ.get('APP_SECRET_KEY')
 if not APP_SECRET_KEY:
     raise AssertionError('APP_SECRET_KEY missing!')
+OAUTH2_USERINFO_URL = environ.get('OAUTH2_USERINFO_URL')
+if not OAUTH2_USERINFO_URL:
+    raise AssertionError('OAUTH2_USERINFO_URL missing!')
 
 app = Flask(__name__)
 #app.config['OIDC_CLIENT_SECRETS'] = 'local-oauth2-client_secrets.json'
@@ -81,7 +84,7 @@ def login():
 @app.route('/profile')
 def profile():
     access_token = session['access_token']
-    verify_response = requests.get('http://localhost:8040/userinfo',
+    verify_response = requests.get(url=OAUTH2_USERINFO_URL,
                                   headers={'Authorization': str('Bearer ' + access_token)})
     full_name = verify_response.json()['name']
     id_info = jwt.decode(session['id_token'], verify=False)
