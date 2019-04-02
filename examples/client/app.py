@@ -5,6 +5,7 @@ from base64 import b64encode
 from requests import Request
 import requests
 from os import environ
+from datetime import datetime
 #from flask_oidc import OpenIDConnect
 
 OAUTH2_AUTH_URL = environ.get('OAUTH2_AUTH_URL')
@@ -87,14 +88,21 @@ def profile():
     verify_response = requests.get(url=OAUTH2_USERINFO_URL,
                                   headers={'Authorization': str('Bearer ' + access_token)})
     full_name = verify_response.json()['name']
-    id_info = jwt.decode(session['id_token'], verify=False)
     email = verify_response.json()['email']
     email_verified = verify_response.json()['email_verified']
-    sub_id = id_info['sub']
+    # id token parameters
+    id_info = jwt.decode(session['id_token'], verify=False)
     iss = id_info['iss']
-    exp = id_info['exp']
-    return render_template('profile.html', full_name=full_name, email=email, iss=iss, exp=exp,
-                           sub_id=sub_id, email_verified=email_verified)
+    sub_id = id_info['sub']
+    aud = id_info['aud'][0]
+    exp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.fromtimestamp(id_info['exp']))
+    iat = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.fromtimestamp(id_info['iat']))
+    auth_time = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.fromtimestamp(id_info['auth_time']))
+    nonce = id_info['nonce']
+    acr = id_info['acr']
+
+    return render_template('profile.html', full_name=full_name, email=email, email_verified=email_verified, iss=iss,
+                           exp=exp, sub_id=sub_id, acr=acr, auth_time=auth_time, iat=iat, aud=aud, nonce=nonce)
 
 
 @app.route('/logout')

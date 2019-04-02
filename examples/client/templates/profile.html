@@ -6,11 +6,16 @@
 </head>
 <body>
     <h1>Hello {{ full_name }}!</h1>
-    <h2> Your email is {{ email }}</h2>
-    <p> email_verified: {{ email_verified }}</p>
-    <p>Issuer: {{ iss }}</p>
-    <p>Expiration time of id_token: {{ exp }}</p>
-    <p>The subscriber id: {{ sub_id }}</p>
+    <h2>Your email is {{ email }}</h2>
+    <p>Email_verified: {{ email_verified }}</p>
+    <p>Issuing authority (iss): {{ iss }}</p>
+    <p>Subject/User (sub): {{ sub_id }}</p>
+    <p>Audience (aud): {{ aud }}</p>
+    <p>Expiration time of id_token (exp): {{ exp }}</p>
+    <p>Time JWT was issued (iat): {{ iat }}</p>
+    <p>Auth Time (auth_time): {{ auth_time }}</p>
+    <p>Nonce (nonce): {{ nonce }}</p>
+    <p>Authentication Context Class Reference (acr): {{ acr }}</p>
 <a href="logout" class="btn btn-success">Logout</a>
 </body>
 </html>
